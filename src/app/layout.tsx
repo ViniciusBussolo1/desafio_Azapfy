@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Oswald } from 'next/font/google'
 import { Theme } from '@radix-ui/themes'
+import { HandleHeroesContextProvider } from '@/context/HandleHeroesContext'
+
 import '@radix-ui/themes/styles.css'
 import './globals.css'
 
@@ -19,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={oswald.className}>
-        <Theme>{children}</Theme>
+        <HandleHeroesContextProvider>
+          <Theme>{children}</Theme>
+        </HandleHeroesContextProvider>
       </body>
     </html>
   )
