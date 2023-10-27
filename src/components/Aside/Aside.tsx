@@ -14,7 +14,7 @@ export function Aside() {
   const { handleDataHeroes } = useContext(HandleHeroesContext)
 
   return (
-    <aside className="w-60 bg-gray-950 py-7">
+    <aside className="max-w-[15rem] w-full bg-gray-950 py-7">
       <div className="w-full flex flex-col justify-center items-center gap-3">
         <UserCircle2 size={48} className="text-blue-800" />
         <h1 className="text-2xl text-gray-200 uppercase">Vinicius</h1>

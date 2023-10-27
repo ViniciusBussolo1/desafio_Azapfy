@@ -18,9 +18,10 @@ interface CardProps {
     md: string
     lg: string
   }
+  onClick: () => void
 }
 
-export function Card({ id, images, name, powerstats }: CardProps) {
+export function Card({ id, images, name, powerstats, onClick }: CardProps) {
   const totalPower =
     powerstats.combat +
     powerstats.speed +
@@ -35,6 +36,7 @@ export function Card({ id, images, name, powerstats }: CardProps) {
         <div
           key={id}
           className="w-48 flex flex-col justify-center items-center gap-3 pb-3 rounded border-[2px] border-gray-500 bg-gray-800 cursor-pointer hover:bg-gray-600"
+          onClick={onClick}
         >
           <Image
             src={images.md}
@@ -57,6 +59,7 @@ export function Card({ id, images, name, powerstats }: CardProps) {
         <div
           key={id}
           className="w-48 flex flex-col justify-center items-center gap-3 pb-3 rounded border-[2px] border-green-700 bg-green-950 cursor-pointer hover:bg-green-900"
+          onClick={onClick}
         >
           <Image
             src={images.md}
@@ -79,6 +82,7 @@ export function Card({ id, images, name, powerstats }: CardProps) {
         <div
           key={id}
           className="w-48 flex flex-col justify-center items-center gap-3 pb-3 rounded border-[2px] border-purple-600 bg-purple-950 cursor-pointer hover:bg-purple-900"
+          onClick={onClick}
         >
           <Image
             src={images.md}
@@ -101,6 +105,7 @@ export function Card({ id, images, name, powerstats }: CardProps) {
         <div
           key={id}
           className="w-48 flex flex-col justify-center items-center gap-3 pb-3 rounded border-[2px] border-yellow-600 bg-yellow-950 cursor-pointer hover:bg-yellow-800"
+          onClick={onClick}
         >
           <Image
             src={images.md}
@@ -123,6 +128,7 @@ export function Card({ id, images, name, powerstats }: CardProps) {
         <div
           key={id}
           className="w-48 flex flex-col justify-center items-center gap-3 pb-3 rounded border-[2px] border-red-600 bg-red-950 cursor-pointer hover:bg-red-800"
+          onClick={onClick}
         >
           <Image
             src={images.md}

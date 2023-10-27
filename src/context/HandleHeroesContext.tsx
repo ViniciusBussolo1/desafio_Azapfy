@@ -24,7 +24,10 @@ interface HeroesProps {
 
 interface HandleHeroesContextDataProps {
   handleDataHeroes: () => void
+  handleHeroesBatle: (heroes: HeroesProps) => void
+  handleWinnerHero: () => HeroesProps
   heroes: Array<HeroesProps>
+  heroesBattle: Array<HeroesProps>
 }
 
 interface HandleHeroesContextProvidersProps {
@@ -39,17 +42,58 @@ export function HandleHeroesContextProvider({
   children,
 }: HandleHeroesContextProvidersProps) {
   const [heroes, setHeroes] = useState<Array<HeroesProps>>([])
+  const [heroesBattle, setHeroesBattle] = useState<Array<HeroesProps>>([])
 
-  const url = 'http://homologacao3.azapfy.com.br/api/ps/metahumans'
+  function handleWinnerHero() {
+    const heroWinner = heroesBattle.reduce((heroi1, heroi2) => {
+      const poderTotal1 = Object.values(heroi1.powerstats).reduce(
+        (total, valor) => total + valor,
+        0,
+      )
+
+      const poderTotal2 = Object.values(heroi2.powerstats).reduce(
+        (total, valor) => total + valor,
+        0,
+      )
+
+      return poderTotal1 > poderTotal2 ? heroi1 : heroi2
+    })
+
+    return heroWinner
+  }
+
+  function handleHeroesBatle(heroes: HeroesProps) {
+    if (heroesBattle.some((hero) => hero.id === heroes.id)) {
+      console.log('voce ja adicionou este heroi')
+    } else {
+      if (heroesBattle.length <= 1) {
+        const novaListaHeroes = [...heroesBattle, heroes]
+
+        setHeroesBattle(novaListaHeroes)
+      } else {
+        return null
+      }
+    }
+  }
 
   async function handleDataHeroes() {
+    const url = 'http://homologacao3.azapfy.com.br/api/ps/metahumans'
+
     const { data } = await axios.get(url)
 
     setHeroes(data)
   }
 
   return (
-    <HandleHeroesContext.Provider value={{ heroes, handleDataHeroes }}>
+    <HandleHeroesContext.Provider
+      value={{
+        heroes,
+        handleDataHeroes,
+        handleHeroesBatle,
+        heroesBattle,
+        handleWinnerHero,
+      }}
+    >
       {children}
     </HandleHeroesContext.Provider>
   )
