@@ -1,6 +1,12 @@
 'use client'
 
-import { ReactNode, createContext, useState } from 'react'
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from 'react'
 import axios from 'axios'
 
 interface HeroesProps {
@@ -28,6 +34,7 @@ interface HandleHeroesContextDataProps {
   handleWinnerHero: () => HeroesProps
   heroes: Array<HeroesProps>
   heroesBattle: Array<HeroesProps>
+  setHeroesBattle: Dispatch<SetStateAction<HeroesProps[]>>
 }
 
 interface HandleHeroesContextProvidersProps {
@@ -92,6 +99,7 @@ export function HandleHeroesContextProvider({
         handleHeroesBatle,
         heroesBattle,
         handleWinnerHero,
+        setHeroesBattle,
       }}
     >
       {children}
