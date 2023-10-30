@@ -21,7 +21,7 @@ export function ListCards() {
           </h1>
         </main>
       ) : (
-        <main className="flex-1 overflow-auto h-screen grid grid-cols-2 min-[1025px]:grid-cols-3 min-[1441px]:grid-cols-5 place-items-center gap-y-20 py-11 ">
+        <main className="flex-1 overflow-auto h-screen grid grid-cols-1 min-[769px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1441px]:grid-cols-5 place-items-start gap-y-20 p-11">
           {heroesFilter.length === 0 ? (
             <>
               {heroes.map((hero) => {
