@@ -32,8 +32,10 @@ interface HandleHeroesContextDataProps {
   handleDataHeroes: () => void
   handleHeroesBatle: (heroes: HeroesProps) => void
   handleWinnerHero: () => HeroesProps
+  handleSearchHeroes: (name: string) => void
   heroes: Array<HeroesProps>
   heroesBattle: Array<HeroesProps>
+  heroesFilter: Array<HeroesProps>
   setHeroesBattle: Dispatch<SetStateAction<HeroesProps[]>>
 }
 
@@ -49,6 +51,7 @@ export function HandleHeroesContextProvider({
   children,
 }: HandleHeroesContextProvidersProps) {
   const [heroes, setHeroes] = useState<Array<HeroesProps>>([])
+  const [heroesFilter, setHeroesFilter] = useState<Array<HeroesProps>>([])
   const [heroesBattle, setHeroesBattle] = useState<Array<HeroesProps>>([])
 
   function handleWinnerHero() {
@@ -91,14 +94,37 @@ export function HandleHeroesContextProvider({
     setHeroes(data)
   }
 
+  function removerSpecials(texto: any) {
+    // eliminando acentuação
+    texto = texto.replace(/[ÀÁÂÃÄÅ]/, 'A')
+    texto = texto.replace(/[àáâãäå]/, 'a')
+    texto = texto.replace(/[ÈÉÊË]/, 'E')
+    texto = texto.replace(/[Ç]/, 'C')
+    texto = texto.replace(/[ç]/, 'c')
+
+    return texto.replace(/[^a-z0-9]/gi, '')
+  }
+
+  function handleSearchHeroes(name: string) {
+    const newBlocos = heroes.filter((item) =>
+      removerSpecials(item.name)
+        .toLocaleLowerCase()
+        .includes(removerSpecials(name).toLocaleLowerCase()),
+    )
+
+    setHeroesFilter(newBlocos)
+  }
+
   return (
     <HandleHeroesContext.Provider
       value={{
         heroes,
         handleDataHeroes,
         handleHeroesBatle,
-        heroesBattle,
         handleWinnerHero,
+        handleSearchHeroes,
+        heroesBattle,
+        heroesFilter,
         setHeroesBattle,
       }}
     >
